@@ -1,0 +1,245 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Comparing Two Population Means: Bayesian},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Comparing Two Population Means: Bayesian}
+\author{true}
+\date{2021-08-20}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+This tutorial will focus on the use of Bayesian (MCMC sampling)
+estimation to explore differences between two populations. Bayesian
+estimation is supported within R via two main packages
+(\texttt{MCMCpack} and \texttt{MCMCglmm}). These packages provide
+relatively simple R-like interfaces (particularly \texttt{MCMCpack}) to
+Bayesian routines and are therefore reasonably good starting points for
+those transitioning between traditional and Bayesian approaches.
+
+\texttt{BUGS} (\emph{Bayesian inference Using Gibbs Sampling}) is an
+algorithm and supporting language (resembling R) dedicated to performing
+the Gibbs sampling implementation of Markov Chain Monte Carlo method.
+Dialects of the \texttt{BUGS} language are implemented within two main
+projects;
+
+\begin{itemize}
+\item
+  \texttt{WinBUGS/OpenBUGS} - written in component pascal and therefore
+  originally Windows only. A less platform specific version
+  (\texttt{OpenBUGS} - Windows and Linux via some component pascal
+  libraries) is now being developed as the WinBUGS successor. Unlike
+  WinBUGS, OpenBUGS does not have a Graphical User Interface and was
+  designed to be invoked from other applications (such as R). The major
+  drawback of WinBUGS/OpenBUGS is that it is relatively slow.
+\item
+  JAGS (Just Another Gibbs Sampler) - written in C++ and is therefore
+  cross-platform and very fast. It can also be called from within R via
+  various packages.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(coda)}
+\FunctionTok{library}\NormalTok{(broom)}
+\FunctionTok{library}\NormalTok{(bayesplot)}
+\CommentTok{\# Approach specific packages}
+\FunctionTok{library}\NormalTok{(MCMCpack)}
+\FunctionTok{library}\NormalTok{(R2jags)}
+\FunctionTok{library}\NormalTok{(rstan)}
+\FunctionTok{library}\NormalTok{(rstanarm)}
+\FunctionTok{library}\NormalTok{(brms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Assign starter values}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{nA }\OtherTok{\textless{}{-}} \DecValTok{60}  \CommentTok{\# sample size from Population A}
+\NormalTok{nB }\OtherTok{\textless{}{-}} \DecValTok{40}  \CommentTok{\# sample size from Population B}
+\NormalTok{muA }\OtherTok{\textless{}{-}} \DecValTok{105}  \CommentTok{\# population mean of Population A}
+\NormalTok{muB }\OtherTok{\textless{}{-}} \FloatTok{77.5}  \CommentTok{\# population mean of Population B}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \DecValTok{3}  \CommentTok{\# standard deviation of both populations (equally varied)}
+
+\CommentTok{\# Data generation}
+\NormalTok{yA }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ nA, }\AttributeTok{mean =}\NormalTok{ muA, }\AttributeTok{sd =}\NormalTok{ sigma)  }\CommentTok{\# Population A sample}
+\NormalTok{yB }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ nB, }\AttributeTok{mean =}\NormalTok{ muB, }\AttributeTok{sd =}\NormalTok{ sigma)  }\CommentTok{\#Population B sample}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(yA, yB)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{), }\FunctionTok{c}\NormalTok{(nA, nB)))  }\CommentTok{\#categorical listing of the populations}
+\NormalTok{xn }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(x)  }\CommentTok{\#numerical version of the population category for means parameterization. }
+\CommentTok{\# Should not start at 0.}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(y, x, xn)  }\CommentTok{\# dataset}
+\FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          y x xn
+## 1 103.1206 A  1
+## 2 105.5509 A  1
+## 3 102.4931 A  1
+## 4 109.7858 A  1
+## 5 105.9885 A  1
+## 6 102.5386 A  1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{t-test_Bayesian_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\hypertarget{model-fitting}{%
+\section{Model fitting}\label{model-fitting}}
+
+A t-test is essentially just a simple regression model in which the
+categorical predictor is represented by a binary variable in which one
+level is coded as 0 and the other 1.
+
+For the model itself, the observed response (\(y_{i}\)) are assumed to
+be drawn from a normal distribution with a given mean (\(\mu\)) and
+standard deviation (\(\sigma\)). The expected values (\(\mu\)) are
+themselves determined by the linear predictor (\(\beta_0 + \beta x_i\)).
+In this case, β0 represents the mean of the first treatment group and β
+represents the difference between the mean of the first group and the
+mean of the second group (the effect).
+
+MCMC sampling requires priors on all parameters. We will employ weakly
+informative priors. Specifying `uninformative' priors is always a bit of
+a balancing act. If the priors are too vague (wide) the MCMC sampler can
+wander off into nonscence areas of likelihood rather than concentrate
+around areas of highest likelihood (desired when wanting the outcomes to
+be largely driven by the data). On the other hand, if the priors are too
+strong, they may have an influence on the parameters. In such a simple
+model, this balance is very forgiving - it is for more complex models
+that prior choice becomes more important.
+
+For this simple model, we will go with zero-centered Gaussian (normal)
+priors with relatively large standard deviations (1000) for both the
+intercept and the treatment effect and a wide half-cauchy (scale=25) for
+the standard deviation.
+
+\[
+\begin{align}
+y_i &\sim{} N(\mu, \sigma)\\
+\mu &= \beta_0 + \beta x_i\\[1em]
+\beta_0 &\sim{} N(0,1000)\\
+\beta &\sim{} N(0,1000)\\
+\sigma &\sim{} cauchy(0,25)\\
+\end{align}
+\]
+
+\end{document}
