@@ -110,7 +110,7 @@ y_i &\sim{} N(\mu, \sigma)\\
 \mu &= \beta_0 + \beta x_i\\[1em]
 \beta_0 &\sim{} N(0,1000)\\
 \beta &\sim{} N(0,1000)\\
-\sigma &\sim{} cauchy(0,25)\\
+\sigma &\sim{} \text{cauchy}(0,25)\\
 \end{align}
 $$
 
